@@ -556,7 +556,7 @@ and parse it json and call (as CALLBACK)."
   (message "window width: %d" (window-width))
   (let* ((factor (- 1.0 welcome-dashboard-max-width-factor))
          ;; (margin (max 0 (* 0.5 factor (window-width))))
-         (margin (max 0 (* 0.5 (- (window-width) (* 2 welcome-dashboard-path-max-length) ))))
+         (margin (max 0 (* 0.5 (- (window-width) (+ 10 (* 2 welcome-dashboard-path-max-length)) ))))
          )
     (truncate margin)))
 
@@ -604,7 +604,7 @@ and parse it json and call (as CALLBACK)."
         (forward-line 3)
         (read-only-mode +1)
         (message "margins: %d" margin)
-        (set-window-margins (selected-window) margin margin)
+        (set-window-margins (selected-window) margin 0)
         ))))
 
 (provide 'welcome-dashboard)
