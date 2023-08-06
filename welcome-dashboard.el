@@ -258,10 +258,11 @@
     ((or `95 `96 `99) "Thunderstorm")
     (_ "Unknown")))
 
-(defun welcome-dashboard--insert-centered (text)
+(defun welcome-dashboard--insert-centered (text margin)
   "Insert TEXT at the center of the current line."
-  (let ((width (window-width)))
-    (insert (make-string (/ (- width (length text)) 2) ?\ ))
+  (let* ((width (- (window-body-width) margin (length text) )))
+    ;; (insert (make-string (/ (- width (length text)) 2) ?\ ))
+    (insert (make-string width ?\ ))
     (insert text)))
 
 (defun welcome-dashboard--open-recent-file ()
@@ -592,7 +593,7 @@ and parse it json and call (as CALLBACK)."
         (insert "\n\n")
         ;; (insert (make-string left-margin ?\ ))
 
-        (welcome-dashboard--insert-centered (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
+        (welcome-dashboard--insert-centered margin (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
         (insert "\n\n")
 
         (when (display-graphic-p)
