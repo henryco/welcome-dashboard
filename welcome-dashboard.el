@@ -376,7 +376,7 @@ And adding an ellipsis."
 (defun welcome-dashboard--insert-text (text)
   "Insert (as TEXT)."
   (let ((left-margin (welcome-dashboard--calculate-padding-left)))
-    (insert (format "%s%s\n" (make-string "" ?\s) text))))
+    (insert (format "%s%s\n" (make-string 0 ?\s) text))))
 
 (defun welcome-dashboard--redisplay-buffer-on-resize (&rest _)
   "Resize current buffer."
