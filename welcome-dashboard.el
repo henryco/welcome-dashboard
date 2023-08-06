@@ -568,8 +568,8 @@ and parse it json and call (as CALLBACK)."
     (let* ((buffer-read-only)
            (image (welcome-dashboard-conditional-create-image))
            (margin (welcome-dashboard-calc-margins))
-           ;; (size (if (display-graphic-p) (image-size image) '(0 . 0)))
-           ;; (width (car size))
+           (size (if (display-graphic-p) (image-size image) '(0 . 0)))
+           (width (car size))
            ;; (left-margin (max welcome-dashboard-min-left-padding (floor (/ (- (window-width) width) 2))))
            (packages (format "%d" (welcome-dashboard--package-length))))
       (erase-buffer)
@@ -590,20 +590,20 @@ and parse it json and call (as CALLBACK)."
         (welcome-dashboard--insert-weather-info)
 
         (insert "\n\n")
-        ;; (insert (make-string left-margin ?\ ))
-
         (welcome-dashboard--insert-centered margin (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
-        (insert "\n\n")
 
         (when (display-graphic-p)
-          (insert-image image))
+          (insert "\n\n")
+          (let ((space (- (window-body-width) (* 2 margin) (/ width 2))
+                )
+            (insert (make-string (truncate space) ?\ ))
+            (insert-image image)))
 
         (switch-to-buffer welcome-dashboard-buffer)
         (welcome-dashboard-mode)
         (goto-char (point-min))
         (forward-line 3)
         (read-only-mode +1)
-        (message "margins: %d" margin)
         (set-window-margins (selected-window) margin 0)
         ))))
 
