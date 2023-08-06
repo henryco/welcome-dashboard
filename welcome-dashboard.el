@@ -102,7 +102,7 @@
     (define-key map (kbd "RET") 'welcome-dashboard--open-recent-file)
     (define-key map (kbd "<return>") 'welcome-dashboard--open-recent-file)
     (define-key map (kbd "o") 'welcome-dashboard--open-recent-file)
-    (define-key map (kdb "r") (lambda () (forward-line 8)))
+    (define-key map (kbd "r") (lambda () (forward-line 8)))
 
     ;; Add shortcuts for file indexes
     (dolist (i (number-sequence 1 9))
