@@ -586,6 +586,7 @@ and parse it json and call (as CALLBACK)."
 
         (insert "\n\n")
         (welcome-dashboard--insert-centered margin (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
+        (insert "\n")
         (welcome-dashboard--insert-centered margin (propertize "[C-number to open file]" 'face 'welcome-dashboard-subtitle-face ))
 
         (when (display-graphic-p)
