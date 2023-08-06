@@ -551,19 +551,20 @@ and parse it json and call (as CALLBACK)."
   (when (display-graphic-p)
     (create-image welcome-dashboard-image-file 'png nil :width welcome-dashboard-image-width :height welcome-dashboard-image-height)))
 
-(defun wellcome-dashboard-set-margins ()
-  "Calculate and setup window margis"
-  (let* ((limit  (+ 10 welcome-dashboard-path-max-length))
-         (width  (min (window-width) limit))
+(defun welcome-dashboard-calc-margins ()
+  "Calculate window margis"
+  (let* ((width  (min (* 0.75 (window-width)) 60))
          (margin (max 0 (truncate (* 0.5 (- (window-width) width))))))
-    (set-window-margins (selected-window) margin margin)))
+    (truncate margin)))
 
 (defun welcome-dashboard--refresh-screen ()
   "Show the welcome-dashboard screen."
   (setq welcome-dashboard-recentfiles (seq-take recentf-list 9))
   (with-current-buffer (get-buffer-create welcome-dashboard-buffer)
+    (set-window-margins (selected-window) 0 0)
     (let* ((buffer-read-only)
            (image (welcome-dashboard-conditional-create-image))
+           (margin (welcome-dashboard-calc-margins))
            ;; (size (if (display-graphic-p) (image-size image) '(0 . 0)))
            ;; (width (car size))
            ;; (left-margin (max welcome-dashboard-min-left-padding (floor (/ (- (window-width) width) 2))))
@@ -599,7 +600,7 @@ and parse it json and call (as CALLBACK)."
         (goto-char (point-min))
         (forward-line 3)
         (read-only-mode +1)
-        (wellcome-dashboard-set-margins)
+        (set-window-margins (selected-window) margin margin)
         ))))
 
 (provide 'welcome-dashboard)
