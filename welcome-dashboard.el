@@ -258,7 +258,7 @@
     ((or `95 `96 `99) "Thunderstorm")
     (_ "Unknown")))
 
-(defun welcome-dashboard--insert-centered (text margin)
+(defun welcome-dashboard--insert-centered (margin text)
   "Insert TEXT at the center of the current line."
   (let* ((width (- (window-body-width) margin (length text) )))
     ;; (insert (make-string (/ (- width (length text)) 2) ?\ ))
