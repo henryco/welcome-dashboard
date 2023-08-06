@@ -575,7 +575,7 @@ and parse it json and call (as CALLBACK)."
       (erase-buffer)
       (goto-char (point-min))
       (let ((inhibit-read-only t))
-        (insert "\n\n")
+        (insert "\n\n\n")
         (welcome-dashboard--insert-text (propertize welcome-dashboard-title 'face 'welcome-dashboard-title-face))
         (welcome-dashboard--insert-recent-files)
         (setq cursor-type nil)
@@ -592,11 +592,12 @@ and parse it json and call (as CALLBACK)."
         (insert "\n\n")
         ;; (insert (make-string left-margin ?\ ))
 
+        (welcome-dashboard--insert-centered (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
+
         (when (display-graphic-p)
           (insert-image image))
 
         (insert "\n\n")
-        (welcome-dashboard--insert-centered (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
 
         (switch-to-buffer welcome-dashboard-buffer)
         (welcome-dashboard-mode)
