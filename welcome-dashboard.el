@@ -80,6 +80,11 @@
   :group 'welcome-dashboard
   :type '(natnum))
 
+(defcustom welcome-dashboard-aux-icon-height 1.0
+  "Height of auxiliary icons."
+  :group 'welcome-dashboard
+  :type '(float))
+
 (defgroup welcome-dashboard nil
   "Welcome-dashboard group."
   :group 'applications)
@@ -430,9 +435,10 @@ And adding an ellipsis."
   "Get the clock icon."
   (if welcome-dashboard-use-nerd-icons
       (propertize (nerd-icons-octicon "nf-oct-clock")
+                  'face `(:height welcome-dashboard-aux-icon-height)
                   'display '(raise 0))
     (propertize (all-the-icons-octicon "clock")
-                'face `(:family ,(all-the-icons-octicon-family) :height 1.0)
+                'face `(:family ,(all-the-icons-octicon-family) :height welcome-dashboard-aux-icon-height)
                 'display '(raise 0))))
 
 (defun welcome-dashboard--insert-startup-time ()
@@ -448,9 +454,10 @@ And adding an ellipsis."
   "Get the package icon."
   (if welcome-dashboard-use-nerd-icons
       (propertize (nerd-icons-codicon "nf-cod-package")
+                  'face `(:height welcome-dashboard-aux-icon-height)
                   'display '(raise -0.1))
     (propertize (all-the-icons-octicon "package")
-                'face `(:family ,(all-the-icons-octicon-family) :height 1.0)
+                'face `(:family ,(all-the-icons-octicon-family) :height welcome-dashboard-aux-icon-height)
                 'display '(raise -0.1))))
 
 (defun welcome-dashboard--insert-package-info (packages)
@@ -479,10 +486,10 @@ And adding an ellipsis."
   (when (welcome-dashboard--show-weather-info)
     (if welcome-dashboard-weatherdescription
         (welcome-dashboard--insert-text (format "%s %s, %s%s"
-                                      (propertize welcome-dashboard-weathericon 'face '(:family "Weather icons" :height 1.0) 'display '(raise 0))
+                                      (propertize welcome-dashboard-weathericon 'face '(:family "Weather icons" :height welcome-dashboard-aux-icon-height) 'display '(raise 0))
                                       (propertize welcome-dashboard-weatherdescription 'face 'welcome-dashboard-weather-description-face)
                                       (propertize welcome-dashboard-temperature 'face 'welcome-dashboard-weather-temperature-face)
-                                      (propertize (welcome-dashboard--temperature-symbol) 'face 'welcome-dashboard-text-info-face)))
+                                      (propertize (welcome-dashboard--temperature-symbol) 'face 'welcome-dashboard-weather-temperature-face)))
       (welcome-dashboard--insert-text (propertize "Loading weather data..." 'face 'welcome-dashboard-weather-temperature-face)))))
 
 (defun welcome-dashboard--parse-todo-result (result)
@@ -539,12 +546,17 @@ and parse it json and call (as CALLBACK)."
      (length elpaca--queued))
     (t 0)))
 
+(defun welcome-dashboard-conditional-create-image ()
+  "Create image only if graphical mode"
+  (when (display-graphic-p)
+    (image (create-image welcome-dashboard-image-file 'png nil :width welcome-dashboard-image-width :height welcome-dashboard-image-height))))
+
 (defun welcome-dashboard--refresh-screen ()
   "Show the welcome-dashboard screen."
   (setq welcome-dashboard-recentfiles (seq-take recentf-list 9))
   (with-current-buffer (get-buffer-create welcome-dashboard-buffer)
     (let* ((buffer-read-only)
-           (image (create-image welcome-dashboard-image-file 'png nil :width welcome-dashboard-image-width :height welcome-dashboard-image-height))
+           (image (welcome-dashboard-conditional-create-image))
            (size (image-size image))
            (width (car size))
            (left-margin (max welcome-dashboard-min-left-padding (floor (/ (- (window-width) width) 2))))
@@ -552,7 +564,7 @@ and parse it json and call (as CALLBACK)."
       (erase-buffer)
       (goto-char (point-min))
       (let ((inhibit-read-only t))
-        (insert "\n")
+        (insert "\n\n")
         (welcome-dashboard--insert-text (propertize welcome-dashboard-title 'face 'welcome-dashboard-title-face))
         (welcome-dashboard--insert-recent-files)
         (setq cursor-type nil)
@@ -568,15 +580,20 @@ and parse it json and call (as CALLBACK)."
 
         (insert "\n\n")
         (insert (make-string left-margin ?\ ))
-        (insert-image image)
+
+        (when (display-graphic-p)
+          (insert-image image))
+
         (insert "\n\n")
         (welcome-dashboard--insert-centered (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
 
         (switch-to-buffer welcome-dashboard-buffer)
-        (read-only-mode +1)
+        ;; (read-only-mode +1)
         (welcome-dashboard-mode)
         (goto-char (point-min))
-        (forward-line 3)))))
+        (forward-line 3)
+        (read-only-mode +1)
+        ))))
 
 (provide 'welcome-dashboard)
 ;;; welcome-dashboard.el ends here
