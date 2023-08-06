@@ -55,6 +55,11 @@
   :group 'welcome-dashboard
   :type '(natnum))
 
+(defcustom welcome-dashboard-max-width-factor 0.5
+  "Maximum width."
+  :group 'welcome-dashboard
+  :type '(float))
+
 (defcustom welcome-dashboard-latitude nil
   "Latitude for weather information."
   :group 'welcome-dashboard
@@ -549,7 +554,7 @@ and parse it json and call (as CALLBACK)."
 (defun welcome-dashboard-calc-margins ()
   "Calculate window margis"
   (message "window width: %d" (window-width))
-  (let* ((factor (- 1.0 0.75))
+  (let* ((factor (- 1.0 welcome-dashboard-max-width-factor))
          (margin (max 0 (* 0.5 factor (window-width) ))))
     (truncate margin)))
 
