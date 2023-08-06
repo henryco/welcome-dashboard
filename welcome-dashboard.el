@@ -555,7 +555,9 @@ and parse it json and call (as CALLBACK)."
   "Calculate window margis"
   (message "window width: %d" (window-width))
   (let* ((factor (- 1.0 welcome-dashboard-max-width-factor))
-         (margin (max 0 (* 0.5 factor (window-width) ))))
+         ;; (margin (max 0 (* 0.5 factor (window-width))))
+         (margin (max 0 (* 0.5 (- (window-width) welcome-dashboard-path-max-length 10))))
+         )
     (truncate margin)))
 
 (defun welcome-dashboard--refresh-screen ()
