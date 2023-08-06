@@ -594,10 +594,9 @@ and parse it json and call (as CALLBACK)."
 
         (when (display-graphic-p)
           (insert "\n\n")
-          (let ((space (- (window-body-width) (* 2 margin) width)
+          (let ((space (- (window-body-width) (* 2 margin) (* 1.5 width))
                 ))
-            ;; (insert (make-string (truncate space) ?\ ))
-            (insert (make-string left-margin ?\ ))
+            (insert (make-string (truncate space) ?\ ))
             (insert-image image)))
 
         (switch-to-buffer welcome-dashboard-buffer)
