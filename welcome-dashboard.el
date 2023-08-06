@@ -594,7 +594,7 @@ and parse it json and call (as CALLBACK)."
 
         (when (display-graphic-p)
           (insert "\n\n")
-          (let ((space (- (window-body-width) (* 2 margin) (/ width 2))
+          (let ((space (- (window-body-width) (* 2 margin) width)
                 ))
             (insert (make-string (truncate space) ?\ ))
             (insert-image image)))
