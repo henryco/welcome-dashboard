@@ -40,6 +40,11 @@
   :group 'welcome-dashboard
   :type '(string))
 
+(defcustom welcome-dashboard-subtitle "[C-number to open file]"
+  "Welcome-dashboard subtitle."
+  :group 'welcome-dashboard
+  :type '(string))
+
 (defcustom welcome-dashboard-use-fahrenheit nil
   "Show weather temperature in fahrenheit."
   :group 'welcome-dashboard
@@ -577,8 +582,6 @@ and parse it json and call (as CALLBACK)."
         (welcome-dashboard--insert-recent-files)
         (setq cursor-type nil)
 
-        ;; (welcome-dashboard--insert-centered margin (propertize "[C-number to open file]" 'face 'welcome-dashboard-subtitle-face ))
-        
         (insert "\n")
         (welcome-dashboard--insert-startup-time)
         (welcome-dashboard--insert-package-info packages)
@@ -587,7 +590,7 @@ and parse it json and call (as CALLBACK)."
         (insert "\n\n")
         (welcome-dashboard--insert-centered margin (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
         (insert "\n")
-        (welcome-dashboard--insert-centered margin (propertize "[C-number to open file]" 'face 'welcome-dashboard-subtitle-face ))
+        (welcome-dashboard--insert-centered margin (propertize welcome-dashboard-subtitle 'face 'welcome-dashboard-subtitle-face ))
 
         (when (display-graphic-p)
           (insert "\n\n")
