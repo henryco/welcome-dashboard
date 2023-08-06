@@ -123,7 +123,7 @@
   (setq-local truncate-lines t)
   (setq-local mode-line-format nil)
   (setq-local global-hl-line-mode nil)
-
+  (read-only-mode 1)
   (if welcome-dashboard-use-nerd-icons
       (require 'nerd-icons)
     (require 'all-the-icons))
@@ -575,7 +575,7 @@ and parse it json and call (as CALLBACK)."
       (erase-buffer)
       (goto-char (point-min))
       (let ((inhibit-read-only t))
-        (insert "\n\n\n\n")
+        (insert "\n\n\n\n\n\n")
         (welcome-dashboard--insert-text (propertize welcome-dashboard-title 'face 'welcome-dashboard-title-face))
         (welcome-dashboard--insert-recent-files)
         (setq cursor-type nil)
