@@ -276,7 +276,7 @@
          (line-end (line-end-position))
          (prop-pos (next-single-property-change line-start 'path nil line-end)))
     (message "%s | %s | %s"
-             lien-start
+             line-start
              line-end
              prop-pos
              )
