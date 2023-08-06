@@ -581,7 +581,7 @@ and parse it json and call (as CALLBACK)."
         (welcome-dashboard--insert-todos)
 
         (insert "\n")
-        (welcome-dashboard--insert-centered margin (propertize ("Quick access [C-number to open file]" 'face 'welcome-dashboard-subtitle-face )))
+        (welcome-dashboard--insert-centered margin (propertize "Quick access [C-number to open file]" 'face 'welcome-dashboard-subtitle-face ))
         
         (insert "\n")
         (welcome-dashboard--insert-startup-time)
