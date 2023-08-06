@@ -570,7 +570,7 @@ and parse it json and call (as CALLBACK)."
            (margin (welcome-dashboard-calc-margins))
            (size (if (display-graphic-p) (image-size image) '(0 . 0)))
            (width (car size))
-           ;; (left-margin (max welcome-dashboard-min-left-padding (floor (/ (- (window-width) width) 2))))
+           (left-margin (max 0 (floor (/ (- (window-width) width) 2))))
            (packages (format "%d" (welcome-dashboard--package-length))))
       (erase-buffer)
       (goto-char (point-min))
@@ -596,7 +596,8 @@ and parse it json and call (as CALLBACK)."
           (insert "\n\n")
           (let ((space (- (window-body-width) (* 2 margin) width)
                 ))
-            (insert (make-string (truncate space) ?\ ))
+            ;; (insert (make-string (truncate space) ?\ ))
+            (insert (make-string left-margin ?\ ))
             (insert-image image)))
 
         (switch-to-buffer welcome-dashboard-buffer)
