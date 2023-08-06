@@ -7,7 +7,7 @@
 ;; Created: 2023
 ;; Version: 0.1
 ;; Package-Requires: ((emacs "27.1") (all-the-icons "5.0.0") (async "1.9.7"))
-;; Homepage: https://github.com/konrad1977/welcome-dashboard
+;; Homepage: https://github.com/henryco/welcome-dashboard
 
 ;;; Commentary:
 
