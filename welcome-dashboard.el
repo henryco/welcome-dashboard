@@ -602,7 +602,7 @@ and parse it json and call (as CALLBACK)."
         (switch-to-buffer welcome-dashboard-buffer)
         (welcome-dashboard-mode)
         (goto-char (point-min))
-        (forward-line 3)
+        (forward-line 6)
         (set-window-margins (selected-window) margin 0)
         )))
   (read-only-mode +1)
