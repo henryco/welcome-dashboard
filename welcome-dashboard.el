@@ -102,7 +102,7 @@
     (define-key map (kbd "RET") 'welcome-dashboard--open-recent-file)
     (define-key map (kbd "<return>") 'welcome-dashboard--open-recent-file)
     (define-key map (kbd "o") 'welcome-dashboard--open-recent-file)
-    (define-key map (kbd "r") '(lambda () (interactive) (goto-line 8)))
+    (define-key map (kbd "r") '(lambda () (interactive) (goto-line 9)))
 
     ;; Add shortcuts for file indexes
     (dolist (i (number-sequence 1 9))
@@ -599,7 +599,7 @@ and parse it json and call (as CALLBACK)."
         (switch-to-buffer welcome-dashboard-buffer)
         (welcome-dashboard-mode)
         (goto-char (point-min))
-        (goto-line 8)
+        (goto-line 9)
         (set-window-margins (selected-window) margin 0)
         )))
   (read-only-mode +1)
