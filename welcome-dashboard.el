@@ -594,6 +594,7 @@ and parse it json and call (as CALLBACK)."
         (goto-char (point-min))
         (forward-line 3)
         (read-only-mode +1)
+        (message "margins: %d" margin)
         (set-window-margins (selected-window) margin margin)
         ))))
 
