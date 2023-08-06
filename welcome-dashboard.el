@@ -80,11 +80,6 @@
   :group 'welcome-dashboard
   :type '(natnum))
 
-(defcustom welcome-dashboard-aux-icon-height 1.0
-  "Height of auxiliary icons."
-  :group 'welcome-dashboard
-  :type '(float))
-
 (defgroup welcome-dashboard nil
   "Welcome-dashboard group."
   :group 'applications)
@@ -435,10 +430,9 @@ And adding an ellipsis."
   "Get the clock icon."
   (if welcome-dashboard-use-nerd-icons
       (propertize (nerd-icons-octicon "nf-oct-clock")
-                  'face `(:height welcome-dashboard-aux-icon-height)
                   'display '(raise 0))
     (propertize (all-the-icons-octicon "clock")
-                'face `(:family ,(all-the-icons-octicon-family) :height welcome-dashboard-aux-icon-height)
+                'face `(:family ,(all-the-icons-octicon-family) :height 1.0)
                 'display '(raise 0))))
 
 (defun welcome-dashboard--insert-startup-time ()
@@ -454,10 +448,9 @@ And adding an ellipsis."
   "Get the package icon."
   (if welcome-dashboard-use-nerd-icons
       (propertize (nerd-icons-codicon "nf-cod-package")
-                  'face `(:height welcome-dashboard-aux-icon-height)
                   'display '(raise -0.1))
     (propertize (all-the-icons-octicon "package")
-                'face `(:family ,(all-the-icons-octicon-family) :height welcome-dashboard-aux-icon-height)
+                'face `(:family ,(all-the-icons-octicon-family) :height 1.0)
                 'display '(raise -0.1))))
 
 (defun welcome-dashboard--insert-package-info (packages)
@@ -486,7 +479,7 @@ And adding an ellipsis."
   (when (welcome-dashboard--show-weather-info)
     (if welcome-dashboard-weatherdescription
         (welcome-dashboard--insert-text (format "%s %s, %s%s"
-                                      (propertize welcome-dashboard-weathericon 'face '(:family "Weather icons" :height welcome-dashboard-aux-icon-height) 'display '(raise 0))
+                                      (propertize welcome-dashboard-weathericon 'face '(:family "Weather icons" :height 1.0) 'display '(raise 0))
                                       (propertize welcome-dashboard-weatherdescription 'face 'welcome-dashboard-weather-description-face)
                                       (propertize welcome-dashboard-temperature 'face 'welcome-dashboard-weather-temperature-face)
                                       (propertize (welcome-dashboard--temperature-symbol) 'face 'welcome-dashboard-weather-temperature-face)))
@@ -553,8 +546,9 @@ and parse it json and call (as CALLBACK)."
 
 (defun welcome-dashboard-calc-margins ()
   "Calculate window margis"
-  (let* ((width  (min (* 0.75 (window-width)) 60))
-         (margin (max 0 (truncate (* 0.5 (- (window-width) width))))))
+  (message "window width: %d" (window-width))
+  (let* ((factor (- 1.0 0.75))
+         (margin (max 0 (* 0.5 factor (window-width) ))))
     (truncate margin)))
 
 (defun welcome-dashboard--refresh-screen ()
