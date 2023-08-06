@@ -102,6 +102,7 @@
     (define-key map (kbd "RET") 'welcome-dashboard--open-recent-file)
     (define-key map (kbd "<return>") 'welcome-dashboard--open-recent-file)
     (define-key map (kbd "o") 'welcome-dashboard--open-recent-file)
+    (define-key map (kdb "r") (lambda () (forward-line 8)))
 
     ;; Add shortcuts for file indexes
     (dolist (i (number-sequence 1 9))
@@ -581,7 +582,7 @@ and parse it json and call (as CALLBACK)."
         (insert "\n")
         (welcome-dashboard--insert-startup-time)
         (welcome-dashboard--insert-package-info packages)
-        (welcome-dashboard--insert-weather-info)
+        ;; (welcome-dashboard--insert-weather-info)
 
         (insert "\n\n")
         (welcome-dashboard--insert-centered margin (propertize (format-time-string "%A, %B %d %R") 'face 'welcome-dashboard-time-face))
