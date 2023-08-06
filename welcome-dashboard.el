@@ -272,14 +272,14 @@
 (defun welcome-dashboard--open-recent-file ()
   "Open the recent file on the current line."
   (interactive)
-  (message "%s | %s | %s"
-           (line-beginning-position)
-           (line-end-position)
-           (next-single-property-change line-start 'path nil line-end)
-           )
   (let* ((line-start (line-beginning-position))
          (line-end (line-end-position))
          (prop-pos (next-single-property-change line-start 'path nil line-end)))
+    (message "%s | %s | %s"
+             lien-start
+             line-end
+             prop-pos
+             )
     (when prop-pos
       (let ((file (get-text-property prop-pos 'path)))
         (if (file-exists-p file)
