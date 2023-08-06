@@ -371,12 +371,14 @@ And adding an ellipsis."
          (max-filename-length (/ (apply #'max (mapcar 'length filenames)) 2))
          (left-margin (max (+ welcome-dashboard-min-left-padding max-filename-length) (/ (- (window-width) max-length) 2))))
       (- left-margin max-filename-length)
-    welcome-dashboard-min-left-padding))
+    welcome-dashboard-min-left-padding)
+  0
+  )
 
 (defun welcome-dashboard--insert-text (text)
   "Insert (as TEXT)."
   (let ((left-margin (welcome-dashboard--calculate-padding-left)))
-    (insert (format "%s%s\n" (make-string 0 ?\s) text))))
+    (insert (format "%s%s\n" (make-string left-margin ?\s) text))))
 
 (defun welcome-dashboard--redisplay-buffer-on-resize (&rest _)
   "Resize current buffer."
