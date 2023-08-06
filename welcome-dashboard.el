@@ -272,6 +272,10 @@
 (defun welcome-dashboard--open-recent-file ()
   "Open the recent file on the current line."
   (interactive)
+  (message "%s | %s"
+           (line-beginning-position)
+           (line-end-position)
+           )
   (let* ((line-start (line-beginning-position))
          (line-end (line-end-position))
          (prop-pos (next-single-property-change line-start 'path nil line-end)))
@@ -602,7 +606,7 @@ and parse it json and call (as CALLBACK)."
         (switch-to-buffer welcome-dashboard-buffer)
         (welcome-dashboard-mode)
         (goto-char (point-min))
-        (forward-line 6)
+        (forward-line 8)
         (set-window-margins (selected-window) margin 0)
         )))
   (read-only-mode +1)
