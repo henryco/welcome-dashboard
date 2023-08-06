@@ -260,7 +260,7 @@
 
 (defun welcome-dashboard--insert-centered (margin text)
   "Insert TEXT at the center of the current line."
-  (let* ((width (- (window-body-width) (* 2 margin) (length text) 4)))
+  (let* ((width (- (window-body-width) (* 2 margin) (length text) 2)))
     (insert (make-string width ?\ ))
     (insert text)))
 
