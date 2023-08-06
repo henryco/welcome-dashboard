@@ -549,7 +549,7 @@ and parse it json and call (as CALLBACK)."
 (defun welcome-dashboard-conditional-create-image ()
   "Create image only if graphical mode"
   (when (display-graphic-p)
-    (image (create-image welcome-dashboard-image-file 'png nil :width welcome-dashboard-image-width :height welcome-dashboard-image-height))))
+    (create-image welcome-dashboard-image-file 'png nil :width welcome-dashboard-image-width :height welcome-dashboard-image-height)))
 
 (defun welcome-dashboard--refresh-screen ()
   "Show the welcome-dashboard screen."
