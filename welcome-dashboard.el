@@ -272,19 +272,10 @@
 (defun welcome-dashboard--open-recent-file ()
   "Open the recent file on the current line."
   (interactive)
-  (let* ((line-start (line-beginning-position))
-         (line-end (line-end-position))
-         (prop-pos (next-single-property-change line-start 'path nil line-end)))
-    (message "%s | %s | %s"
-             line-start
-             line-end
-             prop-pos
-             )
-    (when prop-pos
-      (let ((file (get-text-property prop-pos 'path)))
-        (if (file-exists-p file)
-            (find-file file)
-          (error "File %s does not exist" file))))))
+  (let* ((curr-line (line-number-at-pos))
+         (index (- curr-line 8)))
+    (when (and (> index 0) (<= index 9))
+      (welcome-dashboard--open-recent-file-at-index index))))
 
 (defun welcome-dashboard--open-recent-file-at-index (index)
   "Open the recent file at the given INDEX in the list."
