@@ -556,7 +556,7 @@ and parse it json and call (as CALLBACK)."
   (message "window width: %d" (window-width))
   (let* ((factor (- 1.0 welcome-dashboard-max-width-factor))
          ;; (margin (max 0 (* 0.5 factor (window-width))))
-         (margin (max 0 (* 0.5 (- (window-width) welcome-dashboard-path-max-length 10))))
+         (margin (max 0 (* 0.5 (- (window-width) (* 2 welcome-dashboard-path-max-length) ))))
          )
     (truncate margin)))
 
