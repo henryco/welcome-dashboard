@@ -553,11 +553,8 @@ and parse it json and call (as CALLBACK)."
 
 (defun welcome-dashboard-calc-margins ()
   "Calculate window margis"
-  (message "window width: %d" (window-width))
   (let* ((factor (- 1.0 welcome-dashboard-max-width-factor))
-         ;; (margin (max 0 (* 0.5 factor (window-width))))
-         (margin (max 0 (* 0.5 (- (window-width) (* 2 welcome-dashboard-path-max-length) ))))
-         )
+         (margin (max 0 (* 0.5 (- (window-width) (* 2 welcome-dashboard-path-max-length) )))))
     (truncate margin)))
 
 (defun welcome-dashboard--refresh-screen ()
@@ -582,8 +579,10 @@ and parse it json and call (as CALLBACK)."
 
         (insert "\n")
         (welcome-dashboard--insert-todos)
-        ;; (welcome-dashboard--insert-text (make-string 60 ?-))
 
+        (insert "\n")
+        (welcome-dashboard--insert-centered margin (propertize ("Quick access [C-number to open file]" 'face 'welcome-dashboard-subtitle-face )))
+        
         (insert "\n")
         (welcome-dashboard--insert-startup-time)
         (welcome-dashboard--insert-package-info packages)
