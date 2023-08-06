@@ -603,9 +603,10 @@ and parse it json and call (as CALLBACK)."
         (welcome-dashboard-mode)
         (goto-char (point-min))
         (forward-line 3)
-        (read-only-mode +1)
         (set-window-margins (selected-window) margin 0)
-        ))))
+        )))
+  (read-only-mode +1)
+  )
 
 (provide 'welcome-dashboard)
 ;;; welcome-dashboard.el ends here
